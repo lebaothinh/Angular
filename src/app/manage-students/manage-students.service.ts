@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Http, HttpModule, Response } from '@angular/http';
+import 'rxjs/add/operator/map';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+export class ManageStudentsService {
 
-export class IpService {
-    constructor(private http: Http) {}
-
-    getIp() {
-        return this.http.get('http://ip.jsontest.com/')
-        .toPromise()
-        .then(res => res.json())
-        .then(resJson => resJson.ip);
-    }
+  arr: [
+    {}
+  ];
+  constructor(private http: Http) { }
+  getPromise()
+  {
+    return this.http.get('http://5b1104db3ffdad0014dacd97.mockapi.io/managestudents/Students')
+    .map((response: Response) => response.json())
+  }
 }

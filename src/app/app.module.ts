@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -11,6 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ManageClassesComponent } from './manage-classes/manage-classes.component';
 import { ManageMarkComponent } from './manage-mark/manage-mark.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { CommonModule } from '@angular/common';
+import { ManageStudentsService } from './manage-students/manage-students.service';
 
 
 @NgModule({
@@ -23,13 +26,15 @@ import { StatisticsComponent } from './statistics/statistics.component';
     ManageClassesComponent,
     ManageMarkComponent,
     StatisticsComponent,
-
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
+    FormsModule,
+  
   ],
-  providers: [
+  providers: [ManageStudentsService
   ],
   bootstrap: [AppComponent],
 })

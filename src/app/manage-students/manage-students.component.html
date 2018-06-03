@@ -1,1 +1,54 @@
-<p>hello world</p>
+<nav class="navbar" style="padding: 0 0 20px 0px; border-bottom: 1px solid #e9ecef;">
+    <form class="form-inline" action="" >
+      <input class="form-control mr-sm-2" name="searchname" placeholder="Search" [(ngModel)]="searchText"/>
+      <button class="btn btn-success" type="submit">Search</button>
+    </form>
+  </nav>
+  <br>
+<button (click)="AddStudent()" class="btn btn-primary btn-sm styleaddstudent">Thêm Mới</button>&nbsp;
+<button *ngIf="statusaddstudent" (click)="CannelAddStudent()" class="btn btn-primary btn-sm styleaddstudent" style="background-color:chocolate;">Hủy Thêm</button>
+<div *ngIf="statusaddstudent">
+    <br>
+    <br>
+  <input placeholder="Nhập tên" [(ngModel)]="nameos" name="inputten"/>&nbsp;
+  <input placeholder="Nhập lớp" [(ngModel)]="classos" name="inputlop"/>&nbsp;
+  <input placeholder="Nhập ngày sinh" [(ngModel)]="dobos" name="inputns"/>
+</div>
+<br>
+<br>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Mã Sinh Viên</th>
+        <th>Tên Sinh Viên</th>
+        <th>Lớp</th>
+        <th>Ngày Sinh</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of arrStudents | filter: searchText" >
+          <ng-container *ngIf="statusupdatestudent">
+              <td>{{student.id}}</td>
+              <td>{{student.name}}</td>
+              <td>{{student.class}}</td>
+              <td>{{student.dateofbirth}}</td>
+              <td><a class="btn btn-primary btn-sm stylebuttondelete" routerLink='' (click)="DeleteStudent(student.id)">Xóa</a></td>
+              <td><a class="btn btn-primary btn-sm stylebuttonupdate" routerLink='' (click)="UpdateStudent(student.id)">Cập Nhật</a></td>
+          </ng-container  >
+          <ng-container *ngIf="!statusupdatestudent">
+              <td></td>
+              <td><input placeholder="Nhập tên" value="{{student.name}}" /></td>
+              <td><select >
+                <ng-container *ngFor="let class of arrClasses" >
+                  <option [selected]="class.id == student.class? 'selected':''" value="class.id">{{class.id}}</option>
+                </ng-container>
+              </select></td>
+              <td><input placeholder="Nhập ngày sinh" value="{{student.dateofbirth}}"/></td>
+              <td></td>
+              <td><a class="btn btn-primary btn-sm stylebuttonupdate" style="color:white;" routerLink='' (click)="UpdateStudent()">Cập Nhật</a></td>
+              
+          </ng-container  >
+      </tr>
+    </tbody>
+  </table>
+  
