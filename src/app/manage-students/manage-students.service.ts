@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, HttpModule, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -7,13 +7,23 @@ import 'rxjs/add/operator/map';
 })
 export class ManageStudentsService {
 
-  arr: [
-    {}
-  ];
   constructor(private http: Http) { }
-  getPromise()
-  {
+  getData() {
     return this.http.get('http://5b1104db3ffdad0014dacd97.mockapi.io/managestudents/Students')
-    .map((response: Response) => response.json())
+      .map((response: Response) => response.json())
+  }
+  sendPostForm(url: string, value) {
+    const headers = new Headers({ 'Content-Type': 'application.json' });
+    const body = JSON.stringify(value);
+    return this.http.post(url, body, { headers })
+      .toPromise()
+      .then(res => res.json())
+  }
+  sendPutForm(url: string, value) {
+    const headers = new Headers({ 'Content-Type': 'application.json' });
+    const body = JSON.stringify(value);
+    return this.http.put(url, body, { headers })
+      .toPromise()
+      .then(res => res.json())
   }
 }
